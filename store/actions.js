@@ -15,3 +15,7 @@ export const removeItem = item => ({
   type: type.REMOVE_ITEM,
   data: item.key
 });
+
+export const clearAllItems = () => ({
+  type: type.CLEAR_ALL_ITEMS,
+})
