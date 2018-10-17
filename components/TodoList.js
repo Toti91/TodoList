@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, Switch, KeyboardAvoidingView } from "react-native";
+import { FlatList, Switch, KeyboardAvoidingView, Text } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import styled from "styled-components";
 import Swipeable from "react-native-swipeable";
@@ -58,10 +58,11 @@ class TodoList extends React.Component {
           data={list}
           renderItem={({ item }) => this.renderListItem(item)}
         />
-        <KeyboardAvoidingView behavior="position">
+        <KeyboardAvoidingView behavior="padding">
           <AddItem />
         </KeyboardAvoidingView>
       </Container>
+
     );
   }
 
