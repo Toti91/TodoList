@@ -51,10 +51,6 @@ const ButtonText = styled.Text`
 class AddItem extends React.Component {
   state = { adding: false, text: "" };
 
-  constructor() {
-    super();
-  }
-
   render() {
     const { adding, text } = this.state;
     const empty = !/\S/.test(text);

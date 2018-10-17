@@ -13,6 +13,16 @@ const Container = styled.View`
   height: 100%;
 `;
 
+const Background = styled.View`
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.07;
+`;
+
 const Item = styled.View`
   display: flex;
   flex-direction: row;
@@ -37,12 +47,13 @@ const Remove = styled.TouchableOpacity`
 `;
 
 class TodoList extends React.Component {
-  swipeable = null;
-
   render() {
     const { list } = this.props;
     return (
       <Container>
+        <Background pointerEvents={"none"}>
+          <FontAwesome name="check" color="#4885ed" size={384} />
+        </Background>
         <FlatList
           data={list}
           renderItem={({ item }) => this.renderListItem(item)}
