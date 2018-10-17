@@ -1,4 +1,4 @@
-import * as type from "../types";
+import * as type from '../types';
 
 const TodoListReducer = (state = [], action) => {
   switch (action.type) {
@@ -6,17 +6,13 @@ const TodoListReducer = (state = [], action) => {
       return [...state, action.data];
 
     case type.TOGGLE_ITEM:
-      const i = state.findIndex(x => x.key === action.data.key);
-      let arr = [...state];
-      arr[i] = action.data;
-
-      return arr;
+      return state.map(item => (item.key === action.data.key ? { ...item, ...action.data } : item));
 
     case type.REMOVE_ITEM:
       return state.filter(item => item.key !== action.data);
 
     case type.CLEAR_ALL_ITEMS:
-      return []
+      return [];
 
     default:
       return state;

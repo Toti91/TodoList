@@ -1,9 +1,9 @@
-import React from "react";
-import styled from "styled-components";
-import { FontAwesome } from "@expo/vector-icons";
-import { connect } from "react-redux";
-import { addItem, clearAllItems } from "../store/actions";
+import React from 'react';
+import styled from 'styled-components';
+import { FontAwesome } from '@expo/vector-icons';
+import { connect } from 'react-redux';
 import { Alert } from 'react-native';
+import { addItem, clearAllItems } from '../store/actions';
 
 const InputContainer = styled.View`
   display: flex;
@@ -48,77 +48,63 @@ const ButtonText = styled.Text`
   text-align: center;
 `;
 
-
 class AddItem extends React.Component {
-  state = { adding: false, text: "" };
-
-  render() {
-    const { adding, text } = this.state;
-    const empty = !/\S/.test(text);
-
-    return adding ? (
-      <InputContainer style={adding && { backgroundColor: "white" }}>
-        <Input
-          placeholder="What to do..."
-          onChangeText={text => this.setState({ text: text })}
-          value={text}
-          returnKeyType="go"
-          onSubmitEditing={() => this.onAdd()}
-          autoFocus={adding}
-          onBlur={() => empty && this.setState({ adding: !adding })}
-        />
-        <Submit
-          onPress={() => this.onAdd()}
-          disabled={empty}
-          style={empty ? { opacity: 0.5 } : {}}
-        >
-          <ButtonText>Add</ButtonText>
-        </Submit>
-      </InputContainer>
-    ) : (
-        <InputContainer pointerEvents={"box-none"}>
-          <Button onPress={() => this.setState({ adding: !adding })}
-            delayLongPress={1500}
-            onLongPress={() => this.onLongPress()}
-
-          >
-            <FontAwesome name="plus" size={32} color="white" />
-          </Button>
-        </InputContainer>
-      );
-  }
+  state = { adding: false, text: '' };
 
   onLongPress() {
     const { clearAll } = this.props;
-    return (
-      Alert.alert(
-        'Be careful',
-        'Do you want to delete all messages?',
-        [
-          { text: 'Cancel', onPress: () => { } },
-          { text: 'OK', onPress: () => clearAll() },
-        ],
-        { cancelable: false }
-      )
-    )
+    return Alert.alert('Woah there!', 'Are you sure you want to clear the list?', [
+      { text: 'Cancel', onPress: () => {}, style: 'cancel' },
+      { text: 'Clear', onPress: () => clearAll(), style: 'destructive' },
+    ]);
   }
 
   onAdd() {
     const { addToList } = this.props;
     const { adding, text } = this.state;
     addToList(text);
-    this.setState({ text: "", adding: !adding });
+    this.setState({ text: '', adding: !adding });
+  }
+
+  render() {
+    const { adding, text } = this.state;
+    const empty = !/\S/.test(text);
+
+    return adding ? (
+      <InputContainer style={adding && { backgroundColor: 'white' }}>
+        <Input
+          placeholder="What to do..."
+          onChangeText={t => this.setState({ text: t })}
+          value={text}
+          returnKeyType="go"
+          onSubmitEditing={() => this.onAdd()}
+          autoFocus={adding}
+          onBlur={() => empty && this.setState({ adding: !adding })}
+        />
+        <Submit onPress={() => this.onAdd()} disabled={empty} style={empty ? { opacity: 0.5 } : {}}>
+          <ButtonText>Add</ButtonText>
+        </Submit>
+      </InputContainer>
+    ) : (
+      <InputContainer pointerEvents="box-none">
+        <Button
+          onPress={() => this.setState({ adding: !adding })}
+          delayLongPress={1500}
+          onLongPress={() => this.onLongPress()}
+        >
+          <FontAwesome name="plus" size={32} color="white" />
+        </Button>
+      </InputContainer>
+    );
   }
 }
 
-
 const mapDispatch = dispatch => ({
   addToList: newItem => dispatch(addItem(newItem)),
-  clearAll: () => dispatch(clearAllItems())
+  clearAll: () => dispatch(clearAllItems()),
 });
-
 
 export default connect(
   null,
-  mapDispatch
+  mapDispatch,
 )(AddItem);
