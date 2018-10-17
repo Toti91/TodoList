@@ -1,15 +1,20 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Provider } from "react-redux";
-import store from "./store/store";
+import { PersistGate } from "redux-persist/integration/react";
+import persistedStore from "./store/store";
 import TodoList from "./components/TodoList";
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <Provider store={store}>
+const { store, persistor } = persistedStore();
+
+const App = () => {
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
         <TodoList />
-      </Provider>
-    );
-  }
-}
+      </PersistGate>
+    </Provider>
+  );
+};
+
+export default App;

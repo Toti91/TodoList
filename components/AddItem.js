@@ -1,9 +1,7 @@
 import React from "react";
-import { Text } from "react-native";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { addItem } from "../store/actions";
-import { FontAwesome } from "@expo/vector-icons";
 
 const InputContainer = styled.View`
   display: flex;
@@ -46,7 +44,6 @@ const ButtonText = styled.Text`
 
 class AddItem extends React.Component {
   state = { adding: false, text: "" };
-  input;
 
   constructor() {
     super();
@@ -64,9 +61,6 @@ class AddItem extends React.Component {
           value={text}
           returnKeyType="go"
           onSubmitEditing={() => this.onAdd()}
-          ref={input => {
-            this.input = input;
-          }}
           autoFocus={adding}
           onBlur={() => empty && this.setState({ adding: !adding })}
         />

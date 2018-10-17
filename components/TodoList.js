@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, FlatList, View, Switch } from "react-native";
+import { FlatList, Switch } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import styled from "styled-components";
 import Swipeable from "react-native-swipeable";
@@ -37,9 +37,10 @@ const Remove = styled.TouchableOpacity`
 `;
 
 class TodoList extends React.Component {
+  swipeable = null;
+
   render() {
     const { list } = this.props;
-
     return (
       <Container behavior="padding">
         <FlatList
