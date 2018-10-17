@@ -1,13 +1,13 @@
 import React from "react";
-import { FlatList, Switch } from "react-native";
+import { FlatList, Switch, KeyboardAvoidingView } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import styled from "styled-components";
 import Swipeable from "react-native-swipeable";
 import { connect } from "react-redux";
-import { editItem, removeItem } from "../store/actions";
+import { toggleItem, removeItem } from "../store/actions";
 import AddItem from "./AddItem";
 
-const Container = styled.KeyboardAvoidingView`
+const Container = styled.View`
   padding-top: 24px;
   position: relative;
   height: 100%;
@@ -42,12 +42,14 @@ class TodoList extends React.Component {
   render() {
     const { list } = this.props;
     return (
-      <Container behavior="padding">
+      <Container>
         <FlatList
           data={list}
           renderItem={({ item }) => this.renderListItem(item)}
         />
-        <AddItem />
+        <KeyboardAvoidingView behavior="position">
+          <AddItem />
+        </KeyboardAvoidingView>
       </Container>
     );
   }
@@ -78,7 +80,7 @@ class TodoList extends React.Component {
 }
 
 const mapDispatch = dispatch => ({
-  toggleSwitch: item => dispatch(editItem(item)),
+  toggleSwitch: item => dispatch(toggleItem(item)),
   remove: item => dispatch(removeItem(item))
 });
 

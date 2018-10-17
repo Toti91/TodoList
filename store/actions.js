@@ -6,8 +6,8 @@ export const addItem = newItem => ({
   data: { key: getId(), value: newItem, toggled: false }
 });
 
-export const editItem = item => ({
-  type: type.EDIT_ITEM,
+export const toggleItem = item => ({
+  type: type.TOGGLE_ITEM,
   data: { key: item.key, value: item.value, toggled: !item.toggled }
 });
 

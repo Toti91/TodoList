@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { FontAwesome } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import { addItem } from "../store/actions";
 
@@ -7,6 +8,8 @@ const InputContainer = styled.View`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  position: absolute;
+  bottom: 0;
   width: 100%;
   padding: 24px 0;
 `;
@@ -16,15 +19,18 @@ const Input = styled.TextInput`
   width: 50%;
   padding: 0 10px;
   font-size: 16px;
+  background-color: white;
   border-bottom-left-radius: 6px;
   border-top-left-radius: 6px;
 `;
 
 const Button = styled.TouchableOpacity`
   background-color: #4885ed;
-  padding: 14px 0;
-  width: 65%;
-  border-radius: 6px;
+  padding: 16px 0;
+  width: 64px;
+  border-radius: 32px;
+  display: flex;
+  align-items: center;
 `;
 
 const Submit = styled.TouchableOpacity`
@@ -54,7 +60,7 @@ class AddItem extends React.Component {
     const empty = !/\S/.test(text);
 
     return adding ? (
-      <InputContainer>
+      <InputContainer style={adding && { backgroundColor: "white" }}>
         <Input
           placeholder="What to do..."
           onChangeText={text => this.setState({ text: text })}
@@ -73,9 +79,9 @@ class AddItem extends React.Component {
         </Submit>
       </InputContainer>
     ) : (
-      <InputContainer>
+      <InputContainer pointerEvents={"box-none"}>
         <Button onPress={() => this.setState({ adding: !adding })}>
-          <ButtonText>New note</ButtonText>
+          <FontAwesome name="plus" size={32} color="white" />
         </Button>
       </InputContainer>
     );

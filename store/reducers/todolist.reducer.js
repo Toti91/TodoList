@@ -6,7 +6,7 @@ const TodoListReducer = (state = [], action) => {
       console.log(action.data);
       return [...state, action.data];
 
-    case type.EDIT_ITEM:
+    case type.TOGGLE_ITEM:
       const i = state.findIndex(x => x.key === action.data.key);
       let arr = [...state];
       arr[i] = action.data;
